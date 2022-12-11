@@ -1,6 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 import * as tools from './tools.js';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { Low } from 'lowdb';
+import { JSONFile } from 'lowdb/node';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const dbFile = join(__dirname, `../src/data/db.json`);
+const adapter = new JSONFile(dbFile);
+const db:any = new Low(adapter);
+await db.read();
 
 const testPathAndFileName = './src/data/test.txt';
 
@@ -31,6 +41,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 		<li><a href="nouns">GET /nouns</a></li>	
 		<li><a href="writetext">POST /writetext</a></li>	
 		<li><a href="readtext">GET /readtext</a></li>	
+		<li><a href="readlowdb">GET /readlowdb</a></li>	
 	</ul>
 	
 	`);
@@ -38,6 +49,11 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 app.get('/nouns', (req: express.Request, res: express.Response) => {
 	res.json(nouns);
+});
+
+app.get('/readlowdb', (req: express.Request, res: express.Response) => {
+	const lowdbNouns = db.data.nouns;
+	res.json(lowdbNouns);
 });
 
 app.post('/writetext', (req: express.Request, res: express.Response) => {

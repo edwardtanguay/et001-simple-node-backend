@@ -1,0 +1,19 @@
+{
+	"nouns": [
+		{
+			"article": "die",
+			"singular": "Notiz",
+			"plural": "die Notizen (from lowdb)"
+		},
+		{
+			"article": "das",
+			"singular": "Konzept",
+			"plural": "die Konzepte (from lowdb)"
+		},
+		{
+			"article": "der",
+			"singular": "Commit",
+			"plural": "die Commits (from lowdb)"
+		}
+	]
+}
