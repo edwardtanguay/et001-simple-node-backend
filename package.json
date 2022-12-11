@@ -6,7 +6,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "npm run build && nodemon",
-		"start": "npm run build && node dist/server.js",
+		"start": "npm i && npm run build && node dist/server.js",
 		"build": "tsc"
 	},
 	"keywords": [],
