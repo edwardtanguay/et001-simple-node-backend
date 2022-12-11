@@ -5,11 +5,14 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
+import dotenv from 'dotenv';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dbFile = join(__dirname, `../src/data/db.json`);
 const adapter = new JSONFile(dbFile);
 const db = new Low(adapter);
 await db.read();
+dotenv.config();
+const EXECUTING_ENVIRONMENT = process.env.EXECUTING_ENVIRONMENT;
 const testPathAndFileName = './src/data/test.txt';
 const app = express();
 app.use(cors());
@@ -31,7 +34,7 @@ const nouns = [
     }
 ];
 app.get('/', (req, res) => {
-    res.send(`TEST API:
+    res.send(`TEST API executing at <b>${EXECUTING_ENVIRONMENT}</b>
 	<ul>
 		<li><a href="nouns">GET /nouns</a></li>	
 		<li><a href="writetext">POST /writetext</a></li>	
